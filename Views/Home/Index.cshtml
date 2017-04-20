@@ -1,0 +1,14 @@
+﻿@{ 
+    ViewBag.Title = "Inicio";
+    List<Model.Alumno> alumnos = ViewBag.Alumnos;
+}
+<h2 class="page-header">Index</h2>
+
+<p>Hola, me pasaron este valor:<b>@ViewBag.Algo</b></p>
+
+<ul>
+    @foreach (var a in alumnos)
+    {
+        <li><b>id</b>: @a.id <b>Nombre</b>: @a.Nombre</li>
+    }
+</ul>
