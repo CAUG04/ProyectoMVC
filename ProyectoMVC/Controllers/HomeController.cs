@@ -12,10 +12,12 @@ namespace ProyectoMVC.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            ViewBag.Alumnos = Alumno.Listar();
-            return View();
+           return View(Alumno.Listar());
         }
-
+        public ActionResult Ver()
+        {
+            return View(new Alumno());
+        }
        
     }
 }
