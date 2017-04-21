@@ -12,12 +12,15 @@ namespace ProyectoMVC.Controllers
         // GET: Home
         public ActionResult Index()
         {
-           return View(Alumno.Listar());
+           return View();
         }
         public ActionResult Ver()
         {
-            return View(new Alumno());
+            return View(Alumno.Obtener());
         }
-       
+       public ActionResult Guardar(Alumno alumno)
+        {
+            return Redirect("~/Home/Index");
+        }
     }
 }

@@ -1,7 +1,19 @@
-﻿
+﻿@model Model.Alumno
 @{
     ViewBag.Title = "Ver";
 }
 
 <h2>Alumno</h2>
+
+@using (Html.BeginForm("Guardar", "Home", FormMethod.Post))
+{
+    @Html.HiddenFor(x => x.id)
+
+    @Html.LabelFor(x => x.Nombre)
+    @Html.TextBoxFor(x => x.Nombre, new {@Class = "form-control"})
+
+  
+
+    <button type="submit" class="btn btn-primary">Enviar</button>
+}
 
