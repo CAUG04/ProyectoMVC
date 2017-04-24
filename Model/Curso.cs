@@ -6,13 +6,12 @@ namespace Model
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("Alumno")]
-    public partial class Alumno
+    [Table("Curso")]
+    public partial class Curso
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Alumno()
+        public Curso()
         {
-            Adjunto = new HashSet<Adjunto>();
             AlumnoCurso = new HashSet<AlumnoCurso>();
         }
 
@@ -20,25 +19,10 @@ namespace Model
         public int id { get; set; }
 
         [Required]
-        [StringLength(50)]
-        public string Nombre { get; set; }
-
-        [Required]
         [StringLength(100)]
-        public string Apellido { get; set; }
-
-        public int Sexo { get; set; }
-
-        [Required]
-        [StringLength(10)]
-        public string FechaNacimiento { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Adjunto> Adjunto { get; set; }
+        public string Nombre { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AlumnoCurso> AlumnoCurso { get; set; }
-
-
     }
 }
