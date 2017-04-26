@@ -1,7 +1,34 @@
-﻿@{ 
+﻿@model List<Model.Alumno>
+@{ 
     ViewBag.Title = "Inicio";
     
 }
-<h2 class="page-header">Index</h2>
+<h2 class="page-header">Alumnos
+    <a href="~/home/crud" class="btn-sm btn btn-primary pull-right">Nuevo Alumno</a></h2>
 
 
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th style="width:200px;">Sexo</th>
+            <th style="width:200px;">Fecha de nacimiento</th>
+            <th style="width:200px;"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var m in Model)
+        {
+            <tr>
+                <th>@(m.Nombre + " " + m.Apellido)</th>
+                <th>@(m.Sexo == 1 ? "Hombre" : "Mujer")</th>
+                <th>@m.FechaNacimiento</th>
+                <th>
+                    <a class="btn btn-xs btn-default" href="~/home/ver/@m.id">Visualizar</a>
+                    <a class="btn btn-xs btn-primary" href="~/home/crud/@m.id">Editar</a>
+                    <a onclick="return confirm('¿Desea eliminar este registro?');" class="btn btn-xs btn-danger" href="~/home/eliminar/@m.id">Eliminar</a>
+                </th>
+            </tr>
+        }
+    </tbody>
+</table>
