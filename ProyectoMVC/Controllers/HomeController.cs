@@ -1,26 +1,58 @@
-﻿using System;
+﻿using Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Model;
 
 namespace ProyectoMVC.Controllers
 {
     public class HomeController : Controller
     {
+        private Alumno alumno = new Alumno();
+
         // GET: Home
         public ActionResult Index()
         {
-           return View();
+            return View(alumno.Listar());
         }
-        public ActionResult Ver()
+
+        //Home/Ver/1
+        public ActionResult Ver(int id)
         {
-            return View(Alumno.Obtener());
+            return View(alumno.Obtener(id));
         }
-       public ActionResult Guardar(Alumno alumno)
+
+        //Home/Crud
+        public ActionResult Crud(int id = 0)
         {
-            return Redirect("~/Home/Index");
+            return View(
+                id == 0 ? new Alumno()
+                : alumno.Obtener(id)
+                );
+        }
+
+        //Home/Guardar
+        public ActionResult Guardar(Alumno model)
+        {
+            if (ModelState.IsValid)
+            {
+                model.Guardar();
+                return Redirect("~/home");
+            }
+            else
+            {
+                return View("~/views/home/crud.cshtml", model);
+            }
+           
+        }
+
+        //Home/Eliminar
+        public ActionResult Eliminar(int id)
+        {
+            alumno.id = id;
+            alumno.Eliminar();
+            return Redirect("~/home");
         }
     }
 }
