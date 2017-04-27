@@ -5,6 +5,8 @@ namespace Model
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Data.SqlClient;
+    using System.Linq;
 
     [Table("Curso")]
     public partial class Curso
@@ -24,5 +26,24 @@ namespace Model
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AlumnoCurso> AlumnoCurso { get; set; }
+
+        public List<Curso> Todos(int Alumno_id = 0)
+        {
+            var cursos = new List<Curso>();
+
+            try
+            {
+               using (var ctx = new TetsContext())
+                {
+                    cursos = ctx.Curso.ToList();
+                }
+            }
+            catch (Exception Exception)
+            {
+
+                throw;
+            }
+            return cursos;
+        }
     }
 }

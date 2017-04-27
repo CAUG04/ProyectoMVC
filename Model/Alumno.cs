@@ -80,8 +80,9 @@ namespace Model
             return alumno;
         }
 
-        public void Guardar()
+        public ResponseModel Guardar()
         {
+            var rm = new ResponseModel();
             try
             {
                 using (var ctx = new TetsContext())
@@ -93,7 +94,9 @@ namespace Model
                     else
                     {
                         ctx.Entry(this).State = EntityState.Added;
+                      
                     }
+                    rm.SetResponse(true);
                     ctx.SaveChanges();
                 }
             }
@@ -101,6 +104,8 @@ namespace Model
             {
                 throw;
             }
+
+            return rm;
         }
 
         public void Eliminar()
