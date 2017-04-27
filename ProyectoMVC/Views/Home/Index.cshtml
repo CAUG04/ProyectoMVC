@@ -4,7 +4,9 @@
     
 }
 <h2 class="page-header">Alumnos
-    <a href="~/home/crud" class="btn-sm btn btn-primary pull-right">Nuevo Alumno</a></h2>
+    <a href="~/home/crud" class="btn-sm btn btn-primary pull-right">Nuevo Alumno</a>
+    Alumnos
+    </h2>
 
 
 <table class="table">
@@ -20,14 +22,14 @@
         @foreach (var m in Model)
         {
             <tr>
-                <th>@(m.Nombre + " " + m.Apellido)</th>
-                <th>@(m.Sexo == 1 ? "Hombre" : "Mujer")</th>
-                <th>@m.FechaNacimiento</th>
-                <th>
+                <td>@(m.Nombre + " " + m.Apellido)</td>
+                <td>@(m.Sexo == 1 ? "Hombre" : "Mujer")</td>
+                <td>@m.FechaNacimiento</td>
+                <td>
                     <a class="btn btn-xs btn-default" href="~/home/ver/@m.id">Visualizar</a>
                     <a class="btn btn-xs btn-primary" href="~/home/crud/@m.id">Editar</a>
                     <a onclick="return confirm('¿Desea eliminar este registro?');" class="btn btn-xs btn-danger" href="~/home/eliminar/@m.id">Eliminar</a>
-                </th>
+                </td>
             </tr>
         }
     </tbody>
