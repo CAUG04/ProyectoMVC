@@ -72,3 +72,30 @@
         $("#cursos").load('@Url.Content("~/home/cursos/?Alumno_id=" + Model.id)');
     }
 </script>
+
+@*<script>
+    $(document).ready(function () {
+        $("#frm-alumno").submit(function () {
+            var form = $(this);
+
+            $.ajax({
+                dataType: 'JSON',
+                type: 'POST',
+                url: form.attr('action'),
+                data: form.serialize(),
+                success: function (r) {
+                    if (r.response) {
+                        window.location.href = r.href;
+                    } else {
+                        alert(r.message);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus + ' ' + errorThrown);
+                }
+            });
+
+            return false;
+        })
+    })
+</script>*@
