@@ -12,6 +12,7 @@ namespace ProyectoMVC.Controllers
         private Alumno alumno = new Alumno();
         private AlumnoCurso alumno_curso = new AlumnoCurso();
         private Curso curso = new Curso();
+        private Adjunto adjunto = new Adjunto();
 
         // GET: Home
         public ActionResult Index()
@@ -25,7 +26,7 @@ namespace ProyectoMVC.Controllers
             return View(alumno.Obtener(id));
         }
 
-         //home/ver/?Alumno_id=1
+         //home/cursos/?Alumno_id=1
         public PartialViewResult Cursos(int Alumno_id)
         {
             //Listamos los cursos de un alumno
@@ -82,6 +83,13 @@ namespace ProyectoMVC.Controllers
             }
 
             return Json(rm);/*, JsonRequestBehavior.AllowGet*/
+        }
+
+        //home/adjuntos/?Alumno_id=1
+        public PartialViewResult Adjuntos(int Alumno_id)
+        {
+            ViewBag.Adjuntos = adjunto.Listar(Alumno_id);
+            return PartialView();
         }
 
         //Home/Eliminar
