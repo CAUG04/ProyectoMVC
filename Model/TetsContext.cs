@@ -20,10 +20,10 @@ namespace Model
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Alumno>()
-                .HasMany(e => e.Adjunto)
-                .WithRequired(e => e.Alumno)
-                .HasForeignKey(e => e.Alumno_id)
-                .WillCascadeOnDelete(false);
+                 .HasMany(e => e.Adjunto)
+                 .WithRequired(e => e.Alumno)
+                 .HasForeignKey(e => e.Alumno_id)
+                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Alumno>()
                 .HasMany(e => e.AlumnoCurso)
@@ -32,10 +32,10 @@ namespace Model
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Curso>()
-                .HasMany(e => e.AlumnoCurso)
-                .WithRequired(e => e.Curso)
-                .HasForeignKey(e => e.Curso_id)
-                .WillCascadeOnDelete(false);
+                 .HasMany(e => e.AlumnoCurso)
+                 .WithRequired(e => e.Curso)
+                 .HasForeignKey(e => e.Curso_id)
+                 .WillCascadeOnDelete(false);
         }
     }
 }

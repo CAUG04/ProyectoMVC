@@ -9,7 +9,6 @@ namespace Model
     [Table("Adjunto")]
     public partial class Adjunto
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int id { get; set; }
 
         public int Alumno_id { get; set; }

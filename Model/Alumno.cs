@@ -18,7 +18,6 @@ namespace Model
             AlumnoCurso = new HashSet<AlumnoCurso>();
         }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int id { get; set; }
 
         [Required]
@@ -40,6 +39,7 @@ namespace Model
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AlumnoCurso> AlumnoCurso { get; set; }
+
 
         public List<Alumno> Listar()
         {
@@ -94,7 +94,7 @@ namespace Model
                     else
                     {
                         ctx.Entry(this).State = EntityState.Added;
-                      
+
                     }
                     rm.SetResponse(true);
                     ctx.SaveChanges();

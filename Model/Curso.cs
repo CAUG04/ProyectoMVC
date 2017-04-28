@@ -17,7 +17,6 @@ namespace Model
             AlumnoCurso = new HashSet<AlumnoCurso>();
         }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int id { get; set; }
 
         [Required]
@@ -27,15 +26,28 @@ namespace Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AlumnoCurso> AlumnoCurso { get; set; }
 
+
         public List<Curso> Todos(int Alumno_id = 0)
         {
             var cursos = new List<Curso>();
 
             try
             {
-               using (var ctx = new TetsContext())
+                using (var ctx = new TetsContext())
                 {
-                    cursos = ctx.Curso.ToList();
+                    if (Alumno_id > 0)
+                    {
+                        var cursos_tomados = ctx.AlumnoCurso.Where(x => x.Alumno_id == Alumno_id)
+                                                                               .Select(x => x.Curso_id)
+                                                                               .ToList();
+                        cursos = ctx.Curso.Where(x => !cursos_tomados.Contains(x.id)).ToList();
+                    }
+                    else
+                    {
+                        cursos = ctx.Curso.ToList();
+                    }
+
+
                 }
             }
             catch (Exception Exception)
@@ -45,5 +57,6 @@ namespace Model
             }
             return cursos;
         }
+
     }
 }
