@@ -25,13 +25,36 @@ namespace ProyectoMVC.Controllers
             return View(alumno.Obtener(id));
         }
 
-        //home/ver/?Alumno_id=1
+         //home/ver/?Alumno_id=1
         public PartialViewResult Cursos(int Alumno_id)
         {
+            //Listamos los cursos de un alumno
+            ViewBag.CursosElegidos = alumno_curso.Listar(Alumno_id);
+
+            //Listamos todos los cursos Disponibles
             ViewBag.Cursos = curso.Todos(Alumno_id);
+            //modelo
             alumno_curso.Alumno_id = Alumno_id;
 
             return PartialView(alumno_curso);
+        }
+
+        //home/guardar
+        public JsonResult GuardarCurso(AlumnoCurso model)
+        {
+            var rm = new ResponseModel();
+
+            if (ModelState.IsValid)
+            {
+                rm = model.Guardar();
+
+                if (rm.response)
+                {
+                    rm.function = "CargarCursos()";
+                }
+            }
+
+            return Json(rm);/*, JsonRequestBehavior.AllowGet*/
         }
 
         //home/crud
@@ -43,7 +66,7 @@ namespace ProyectoMVC.Controllers
                 );
         }
 
-        //Home/Guardar
+        //home/guardar
         public JsonResult Guardar(Alumno model)
         {
             var rm = new ResponseModel();
@@ -58,7 +81,7 @@ namespace ProyectoMVC.Controllers
                 }
             }
 
-            return Json(rm);
+            return Json(rm);/*, JsonRequestBehavior.AllowGet*/
         }
 
         //Home/Eliminar
