@@ -1,6 +1,7 @@
 ﻿using Model;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -54,6 +55,36 @@ namespace ProyectoMVC.Controllers
                     rm.function = "CargarCursos()";
                 }
             }
+
+            return Json(rm);/*, JsonRequestBehavior.AllowGet*/
+        }
+
+        //home/guardar
+        public JsonResult GuardarAdjunto(Adjunto model, HttpPostedFileBase Archivo)
+        {
+            var rm = new ResponseModel();
+
+            if(Archivo != null && Archivo.ContentLength > 0)
+            {
+                // Nombre del archivo es decir, lo renombramos para que no se repita nunca
+                string archivo = DateTime.Now.ToString("yyyyMMddHHmmss") + Path.GetFileName(Archivo.FileName);
+
+                //La ruta donde lo vamos guardar
+                Archivo.SaveAs(Server.MapPath("~/uploads/") + Archivo.FileName);
+
+                //Establecemos en nuestro modelo el nombre del archivo
+                model.Archivo = archivo;
+
+                rm = model.Guardar();
+
+
+                if (rm.response)
+                {
+                    rm.function = "CargarAdjuntos()";
+                }
+            }
+
+            rm.SetResponse(false, "Debe adjuntar un archivo");
 
             return Json(rm);/*, JsonRequestBehavior.AllowGet*/
         }
