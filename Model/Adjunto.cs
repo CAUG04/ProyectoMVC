@@ -4,6 +4,7 @@ namespace Model
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity;
     using System.Data.Entity.Spatial;
     using System.Linq;
 
@@ -38,6 +39,27 @@ namespace Model
                 throw;
             }
             return adjuntos;
+        }
+
+        public ResponseModel Guardar()
+        {
+            var rm = new ResponseModel();
+            try
+            {
+                using (var ctx = new TetsContext())
+                {
+                    ctx.Entry(this).State = EntityState.Added;
+
+                    rm.SetResponse(true);
+                    ctx.SaveChanges();
+                }
+            }
+            catch (Exception exception)
+            {
+                throw;
+            }
+
+            return rm;
         }
     }
 }
