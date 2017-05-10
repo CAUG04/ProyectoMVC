@@ -1,31 +1,44 @@
 ﻿@model  Model.Adjunto
+@{
+    List<Model.Adjunto> adjuntos = ViewBag.Adjuntos;
+}
 
-@using (Html.BeginForm("GuardarCurso", "Home", FormMethod.Post, new { id = "frm-adjuntos" }))
-    {
-        @Html.HiddenFor(x => x.Alumno_id)
-        <div class="form-group">
-            <label>Seleccione un documento a subir</label>
-            <input class="file" name="Archivo">
-        </div>
-        <div class="text-right">
-            <button data-ajax="true" data-confirm="¿Esta seguro de adjuntar este archivo al alumno?" 
-                    type="submit" 
-                    class="btn-sm btn btn-success">Guardar</button>
-        </div>
-    }
-    <hr />
+@using (Html.BeginForm("GuardarAdjunto", "Home", FormMethod.Post, new { id = "frm-adjuntos" }))
+{
+    @Html.HiddenFor(x => x.Alumno_id)
+    <div class="form-group">
+        <label>Seleccione un documento a subir</label>
+        <input type="file" name="Archivo"/>
+    </div>
+    <div class="text-right">
+        <button data-ajax="true" data-confirm="¿Esta seguro de adjuntar este archivo al alumno?"
+                type="submit"
+                class="btn-sm btn btn-success">
+            Guardar
+        </button>
+    </div>
+}
+<hr />
 
-
-@*CURSOS ELEGIDOS
 <ul class="list-group">
-    @foreach (var c in CursosElegidos)
+    @foreach (var a in adjuntos)
     {
-        <li class="list-group-item">@c.Curso.Nombre <span class="badge pull-right">@c.Nota</span></li>
+        <li class="list-group-item">
+            <a href="~/Uploads/@a.Archivo" target="_blank">@a.Archivo</a>
+        </li>
     }
 </ul>
 
-<script>
-    $(document).ready(function () {
-        $.validator.unobtrusive.parse("#frm-curso");
-    })
-</script>*@
+@*CURSOS ELEGIDOS
+    <ul class="list-group">
+        @foreach (var c in CursosElegidos)
+        {
+            <li class="list-group-item">@c.Curso.Nombre <span class="badge pull-right">@c.Nota</span></li>
+        }
+    </ul>
+
+    <script>
+        $(document).ready(function () {
+            $.validator.unobtrusive.parse("#frm-curso");
+        })
+    </script>*@
