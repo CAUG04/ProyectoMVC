@@ -54,6 +54,7 @@
     <Compile Include="Adjunto.cs" />
     <Compile Include="Alumno.cs" />
     <Compile Include="AlumnoCurso.cs" />
+    <Compile Include="AnexGRID.cs" />
     <Compile Include="Curso.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResponseModel.cs" />

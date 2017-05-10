@@ -18,7 +18,12 @@ namespace ProyectoMVC.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            return View(alumno.Listar());
+            return View();
+        }
+
+        public JsonResult CargarAlumnos(AnexGRID grid)
+        {
+            return Json(alumno.Listar(grid));
         }
 
         //Home/Ver/1
@@ -27,7 +32,7 @@ namespace ProyectoMVC.Controllers
             return View(alumno.Obtener(id));
         }
 
-         //home/cursos/?Alumno_id=1
+        //home/cursos/?Alumno_id=1
         public PartialViewResult Cursos(int Alumno_id)
         {
             //Listamos los cursos de un alumno
@@ -64,13 +69,13 @@ namespace ProyectoMVC.Controllers
         {
             var rm = new ResponseModel();
 
-            if(Archivo != null && Archivo.ContentLength > 0)
+            if (Archivo != null/* && Archivo.ContentLength > 0*/)
             {
                 // Nombre del archivo es decir, lo renombramos para que no se repita nunca
                 string archivo = DateTime.Now.ToString("yyyyMMddHHmmss") + Path.GetFileName(Archivo.FileName);
 
                 //La ruta donde lo vamos guardar
-                Archivo.SaveAs(Server.MapPath("~/uploads/") + Archivo.FileName);
+                Archivo.SaveAs(Server.MapPath("~/uploads/") + archivo);
 
                 //Establecemos en nuestro modelo el nombre del archivo
                 model.Archivo = archivo;

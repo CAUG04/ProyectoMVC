@@ -41,22 +41,67 @@ namespace Model
         public virtual ICollection<AlumnoCurso> AlumnoCurso { get; set; }
 
 
-        public List<Alumno> Listar()
+        public AnexGRIDResponde Listar(AnexGRID grid)
         {
-            var alumnos = new List<Alumno>();
-
             try
             {
                 using (var ctx = new TetsContext())
                 {
-                    alumnos = ctx.Alumno.ToList();
+                    grid.Inicializar();
+
+                    var query = ctx.Alumno.Where(x => x.id > 0);
+
+                    // Ordenamiento
+                    if (grid.columna == "id")
+                    {
+                        query = grid.columna_orden == "DESC" ? query.OrderByDescending(x => x.id)
+                                                             : query.OrderBy(x => x.id);
+                    }
+
+                    if (grid.columna == "Nombre")
+                    {
+                        query = grid.columna_orden == "DESC" ? query.OrderByDescending(x => x.Nombre)
+                                                             : query.OrderBy(x => x.Nombre);
+                    }
+
+                    if (grid.columna == "Sexo")
+                    {
+                        query = grid.columna_orden == "DESC" ? query.OrderByDescending(x => x.Sexo)
+                                                             : query.OrderBy(x => x.Sexo);
+                    }
+
+                    if (grid.columna == "FechaNacimiento")
+                    {
+                        query = grid.columna_orden == "DESC" ? query.OrderByDescending(x => x.FechaNacimiento)
+                                                             : query.OrderBy(x => x.FechaNacimiento);
+                    }
+
+                    var alumnos = query.Skip(grid.pagina)
+                                       .Take(grid.limite)
+                                       .ToList();
+
+                    var total = query.Count();
+
+                    grid.SetData(
+                        from a in alumnos
+                        select new
+                        {
+                            a.id,
+                            a.Nombre,
+                            a.Sexo,
+                            a.FechaNacimiento
+                        },
+                        total
+                    );
                 }
             }
-            catch (Exception exception)
+            catch (Exception E)
             {
+
                 throw;
             }
-            return alumnos;
+
+            return grid.responde();
         }
 
         public Alumno Obtener(int id)
