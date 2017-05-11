@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    class AnexGRID
+     public class AnexGRID
     {
         public string columna { get; set; }
         public string columna_orden { get; set; }
